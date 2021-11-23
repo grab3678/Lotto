@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ItemActivity extends AppCompatActivity {
@@ -20,12 +21,11 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.poem_list);
 
-        ArrayList<String > list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         //더미데이터 만들기
-        for (int i = 0; i < 100; i++){
-            list.add(String.format("TEXT %d",i));
+        for (int i = 0; i < 200; i++) {
+            list.add(String.format("TEXT %d", i));
         }
-        Log.d("list", String.valueOf(list.get(1)));
         Button btBack = findViewById(R.id.btBack);
         TextView tv1 = findViewById(R.id.poemItem);
 
@@ -47,8 +47,10 @@ public class ItemActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("tvData",list.get(position));
+                startActivity(intent);
             }
-        });
+        });//item click event end
     }
 }

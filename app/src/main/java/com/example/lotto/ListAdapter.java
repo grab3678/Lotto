@@ -1,6 +1,7 @@
 package com.example.lotto;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,14 @@ import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private ArrayList<String> pData = null;
+
     public interface OnItemClickListener {
         public void onItemClick(View v, int position);
     }
+
     private OnItemClickListener iListener = null;
-    public void setOnItemClickListener(OnItemClickListener listener){
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.iListener = listener;
     }
 
@@ -36,7 +40,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION) {
                         if (iListener != null) {
-                            iListener.onItemClick(v,pos);
+                            iListener.onItemClick(v, pos);
+                            Log.d("pData", pData.get(pos));
                         }
                     }
                 }

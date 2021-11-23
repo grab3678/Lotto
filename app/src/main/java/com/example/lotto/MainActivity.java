@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    Button bt, btSug;
+    Button bt, btSug,btFind;
     TextView[] tvNum = new TextView[6];
     Integer[] tvID = {R.id.num1, R.id.num2, R.id.num3, R.id.num4, R.id.num5, R.id.num6,};
     EditText edt;
@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
         bt = findViewById(R.id.bt);
         btSug = findViewById(R.id.btSug);
+        btFind = findViewById(R.id.btFind);
         edt = findViewById(R.id.edtPoem);
         Intent intent = getIntent();
         String tvData = intent.getStringExtra("tvData");
 
         edt.setText(tvData);
+        btFind.setVisibility(View.GONE);
 
         for (int i = 0; i < tvID.length; i++) {
             tvNum[i] = findViewById(tvID[i]);
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Toast.makeText(getApplicationContext(), "해당 글귀와 현재 시간을 더해 숫자 생성", Toast.LENGTH_SHORT).show();
                     }
+                    btFind.setVisibility(View.VISIBLE);
                 }
             });// 숫자생성 버튼 끝
             btSug.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(),ItemActivity.class);
                     startActivity(i);
                 }
-            });
+            });//추천글 보러가기 버튼 끝
+            btFind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),FindActivity.class);
+                    startActivity(i);
+                }
+            });//주변 지도 끝
         }
     }
 }

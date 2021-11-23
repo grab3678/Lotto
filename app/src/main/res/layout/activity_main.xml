@@ -128,4 +128,12 @@
         android:text="추천 글 보기"
         android:backgroundTint="#262C2C" />
 
+    <Button
+        android:id="@+id/btFind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="주변 판매점 찾기"
+        android:backgroundTint="#262C2C"
+        />
+
 </LinearLayout>
