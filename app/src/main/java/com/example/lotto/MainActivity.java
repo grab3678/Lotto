@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                                 lotto[o] = randomNum;
                                 for (int j = 0; j < o; j++) {
                                     if (lotto[o] == lotto[j]) {
+                                        o--;
                                     }
                                 }
                             }
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                 lotto[o] = randomNum;
                                 for (int j = 0; j < o; j++) {
                                     if (lotto[o] == lotto[j]) {
+                                        o--;
                                     }
                                 }
                             }

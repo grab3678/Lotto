@@ -18,6 +18,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -42,6 +46,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -77,6 +82,7 @@ public class FindActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
+        markers = new ArrayList<Marker>();
 
         mapFrag = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
@@ -192,14 +198,14 @@ public class FindActivity extends AppCompatActivity
             latitude = locationResult.getLastLocation().getLatitude();
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
-            currentPosition = new LatLng(latitude,longitude);
+            currentPosition = new LatLng(latitude, longitude);
             showPlaceInformation(currentPosition);
         }
     };//위도경도 반환
 
     public String getCurrentAddress(LatLng latlng) {
 
-        //지오코더... GPS를 주소로 변환
+        //지오코더
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
         List<Address> addresses;
@@ -212,8 +218,8 @@ public class FindActivity extends AppCompatActivity
                     1);
         } catch (IOException ioException) {
             //네트워크 문제
-            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
-            return "지오코더 서비스 사용불가";
+            Toast.makeText(this, "지도 서비스 사용불가", Toast.LENGTH_LONG).show();
+            return "지도 서비스 사용불가";
         } catch (IllegalArgumentException illegalArgumentException) {
             Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
             return "잘못된 GPS 좌표";
@@ -288,8 +294,9 @@ public class FindActivity extends AppCompatActivity
                 .listener(FindActivity.this)
                 .key("AIzaSyDpwOThyNcV1tDcAnSa5CrvK1OhdSqWPgY")
                 .latlng(location.latitude, location.longitude)//현재 위치
-                .radius(50) //범위
-                .type(PlaceType.STORAGE) //가게 타입
+                .radius(500) //범위
+//                .type(PlaceType.CAFE) //가게 타입
+                .keyword("복권")
                 .build()
                 .execute();
     }
