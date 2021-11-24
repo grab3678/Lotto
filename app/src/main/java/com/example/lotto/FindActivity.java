@@ -70,6 +70,8 @@ public class FindActivity extends AppCompatActivity
 
     GoogleMap gMap;
     MapFragment mapFrag;
+    LatLng currentPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,8 +191,11 @@ public class FindActivity extends AppCompatActivity
             longitude = locationResult.getLastLocation().getLongitude();
             latitude = locationResult.getLastLocation().getLatitude();
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+            currentPosition = new LatLng(latitude,longitude);
+            showPlaceInformation(currentPosition);
         }
-    };
+    };//위도경도 반환
 
     public String getCurrentAddress(LatLng latlng) {
 
@@ -229,11 +234,7 @@ public class FindActivity extends AppCompatActivity
     public void onMapReady(@NonNull GoogleMap map) {
         gMap = map;
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.56, 126.97), 15));
-        if (longitude > 0 && latitude > 0) {
-            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
-        }
     }
-
 
     @Override
     public void onPlacesFailure(PlacesException e) {
@@ -298,5 +299,3 @@ public class FindActivity extends AppCompatActivity
 
     }
 }
-
-

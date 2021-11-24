@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     }//edt null value end.
                     else {
                         int poemInt = edt.getText().toString().length();
+                        Log.d("strCheck", String.valueOf(edt.getText()));
                         Random rnd = new Random();
                         rnd.setSeed(poemInt + System.currentTimeMillis());
                         for (int index = 0; index < tvID.length; index++) {
